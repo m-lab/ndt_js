@@ -14,6 +14,17 @@ source is available at:
 
 https://code.google.com/p/ndt/source/browse/#svn%2Ftrunk%2Fflash-client
 
+Getting Started
+---------------------
+Clone this repository somewhere into the webroot of your Web server, then
+browse to that location.  A few example implementations are available in the
+examples/ directory.  To try any of the examples, simply replace the index.html
+file in the root of this repository with a copy of the index.html files in any
+of the example directories.  By default, index.html is simply a symbolic link
+to the _single_ example, which provides a basic SVG image that is updated as
+the test is being run to give the status of the currently running test, and
+results when the test is done.
+
 Method 1: Javascript Interaction 
 ---------------------
 -   **status**: Simple abstracted layer to retrieve M-Lab test state.
