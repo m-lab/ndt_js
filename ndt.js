@@ -272,6 +272,9 @@ NDTjs.prototype = {
 			return false;
 		}		
 	},
+  	ndt_get_var: function(ndt_var) {
+		return this.client.getNDTvar(ndt_var);
+	},
 	/**
 	 * mlab_find_server
 	 * 
@@ -307,4 +310,12 @@ NDTjs.prototype = {
 		
 		return false;				
 	}
+}
+
+/**
+ * Global functions
+ */
+var flash_errors = [];
+function appendErrors(msg) {
+    flash_errors.push(msg);
 }

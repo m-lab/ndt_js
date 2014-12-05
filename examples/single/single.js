@@ -59,6 +59,30 @@ function NDT_initialize_application() {
 	d3.selectAll("#progress-meter text").classed("ready", true)
 	d3.selectAll("#progress-meter .foreground").classed("complete", false)
 	d3.selectAll("#progress-meter").classed("progress-error", false)
+	if ( window.NDT['object'].ndt_get_var("BadRuntime") == "true" )	{
+		var flash_vars = document.getElementsByName('FlashVars');
+		for ( var idx = 0; idx < flash_vars.length; idx++ ) {
+			if ( flash_vars[idx].value.match(/BadRuntimeAction/) ) {
+				var bad_runtime_action = flash_vars[idx].value.split('=')[1];
+			}
+		}
+		switch ( bad_runtime_action ) {
+			case "none":
+	    			d3.select('text.status').text('Start Test');	
+				break;
+			case "warn":
+	    			d3.select('text.status').text('Start Test (Warning)');	
+	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
+				break;
+			case "warn-limit":
+	    			d3.select('text.status').text('Start Test (Warning-Limit)');	
+	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
+				break;
+			default:
+	    			d3.select('text.status').text('Error');
+	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
+		}
+	}
 }
 function NDT_on_click() {
 	window.NDT['object'].start_test(window.NDT['callbacks']);
@@ -83,19 +107,19 @@ function NDT_on_change(returned_message) {
 		var ndt_status_labels = {
 			'notStarted': 'Preparing',
 			'allTestsCompleted': 'Complete',
-                        'preparingInboundTest': 'Preparing Download',
-                        'preparingOutboundTest': 'Preparing Upload',
-                        'runningInboundTest': 'Measuring Download',
-                        'runningOutboundTest': 'Measuring Upload',
+			'preparingInboundTest': 'Preparing Download',
+			'preparingOutboundTest': 'Preparing Upload',
+			'runningInboundTest': 'Measuring Download',
+			'runningOutboundTest': 'Measuring Upload',
 			'finishedInboundTest': 'Finished Download',
 			'finishedOutboundTest': 'Finished Upload',
 			'sendingMetaInformation': 'Sending to M-Lab...',
-                        'submittedMetaInformation': 'Measurement Sent!',
-								}
+			'submittedMetaInformation': 'Measurement Sent!',
+		}
 		window.NDT['state'] = returned_message;
 		window.NDT['time_switched'] = new Date().getTime();
 		
-		d3.select('text.status').text(ndt_status_labels[returned_message])
+		d3.select('text.status').text(ndt_status_labels[returned_message]);
 		d3.timer(NDT_on_progress);		
 }
 function NDT_on_progress() {
@@ -178,7 +202,7 @@ function NDT_on_completion() {
 }
 function NDT_on_error(error_message) {
 	d3.timer.flush();
-	d3.selectAll("#progress-meter").classed("progress-error", true)
+	d3.selectAll("#progress-meter").classed("progress-error", true);
 	d3.select('text.status').text('Error!');
 	d3.select('text.information').text(error_message);
 }
