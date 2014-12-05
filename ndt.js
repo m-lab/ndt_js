@@ -88,7 +88,7 @@ NDTjs.prototype = {
         function div(visible) {
             var d = document.createElement('div');
             document.body.appendChild(d);
-            d.id = id();
+            d.id = id("div");
             if (!visible) {
                 // setting display:none causes the .swf to not render at all
                 d.style.position = "relative";

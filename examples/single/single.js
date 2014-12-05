@@ -1,7 +1,7 @@
 function NDT_on_pageload() {
 
-	var width = 500, 
-		height = 500,
+	var width = +d3.select("#svg").style("width").replace(/px/, ""), 
+		height = +d3.select("#svg").style("height").replace(/px/, ""), 
 		twoPi = 2 * Math.PI;
 
 	window.NDT = {
@@ -23,7 +23,7 @@ function NDT_on_pageload() {
 		onready: window.NDT['callbacks']['onready']
 	});
 	
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select("#svg").append("svg")
 		.attr("width", width)
 		.attr("height", height)
 		.append("g")
@@ -70,12 +70,8 @@ function NDT_initialize_application() {
 			case "none":
 	    			d3.select('text.status').text('Start Test');	
 				break;
-			case "warn":
+			case "warn", "warn-limit":
 	    			d3.select('text.status').text('Start Test (Warning)');	
-	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
-				break;
-			case "warn-limit":
-	    			d3.select('text.status').text('Start Test (Warning-Limit)');	
 	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
 				break;
 			default:

@@ -1,9 +1,23 @@
+#container {
+	width: 100%;
+	margin: 0 auto;
+}
+#msg {
+	margin: 0 auto;
+	width: 500px;
+	color: red;
+	text-align: center;
+}
+#svg {
+	margin: 0 auto;
+	width: 500px;
+	height: 500px;
+}
 #progress-meter {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 28px;
 	font-weight: bold;
 }
-
 #progress-meter text {
 	fill: #2A333D;
 }
