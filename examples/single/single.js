@@ -68,18 +68,23 @@ function NDT_initialize_application() {
 		}
 		switch ( bad_runtime_action ) {
 			case "none":
-	    			d3.select('text.status').text('Start Test');	
+	    			d3.select('text.status')
+					.text('Start Test')
+					.style('fill', 'green');
 				break;
-			case "warn", "warn-limit":
-	    			d3.select('text.status').text('Start Test (Warning)');	
-	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
+			case "warn":
+			case "warn-limit":
+	    			d3.select('text.status')
+					.text('Start Test [Warning]')	
+					.style('fill', '#ffde00');
+	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
 				break;
 			default:
 	    			d3.select('text.status')
 					.text('Error')
-	    				.style("fill", "red")
-	    				.style("pointer-events", "none");
-	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
+	    				.style('fill', 'red')
+	    				.style('pointer-events', 'none');
+	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
 		}
 	}
 }
