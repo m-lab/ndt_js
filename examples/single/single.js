@@ -75,7 +75,10 @@ function NDT_initialize_application() {
 	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
 				break;
 			default:
-	    			d3.select('text.status').text('Error');
+	    			d3.select('text.status')
+					.text('Error')
+	    				.style("fill", "red")
+	    				.style("pointer-events", "none");
 	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var("GuiMessage"));	
 		}
 	}
