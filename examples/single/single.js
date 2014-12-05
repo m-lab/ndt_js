@@ -60,10 +60,10 @@ function NDT_initialize_application() {
 	d3.selectAll("#progress-meter .foreground").classed("complete", false)
 	d3.selectAll("#progress-meter").classed("progress-error", false)
 	if ( window.NDT['object'].ndt_get_var("BadRuntime") == "true" )	{
-		var flash_vars = document.getElementsByName('FlashVars');
-		for ( var idx = 0; idx < flash_vars.length; idx++ ) {
-			if ( flash_vars[idx].value.match(/BadRuntimeAction/) ) {
-				var bad_runtime_action = flash_vars[idx].value.split('=')[1];
+		var meta_tags = document.getElementsByTagName('meta');
+		for ( var idx = 0; idx < meta_tags.length; idx++ ) {
+			if ( meta_tags[idx].name == "BadRuntimeAction" ) {
+				var bad_runtime_action = meta_tags[idx].content;
 			}
 		}
 		switch ( bad_runtime_action ) {
