@@ -117,7 +117,8 @@ NDTjs.prototype = {
              '	<param value="always" name="allowScriptAccess">' +
 		*/
 		swfContainer.innerHTML ='<object width="483" height="387" id="' + swfName + 
-			'" data="' + this.config.swf_url + '" type="application/x-shockwave-flash">';
+			'" data="' + this.config.swf_url + '" type="application/x-shockwave-flash">' +
+			'<param name="FlashVars" value="BadRuntimeAction=warn-limit">';
         return document[swfName] || window[swfName];
 	},
 	/**
@@ -315,7 +316,26 @@ NDTjs.prototype = {
 /**
  * Global functions
  */
-var flash_errors = [];
 function appendErrors(msg) {
-    flash_errors.push(msg);
+	var msg_div = document.getElementsByTagName('body')[0];
+	var dbg_msg = document.createElement('div');
+	dbg_msg.innerHTML = "&raquo; " + msg;
+	msg_div.appendChild(dbg_msg);
+}
+
+function appendDebugOutput(msg) {
+	var msg_div = document.getElementsByTagName('body')[0];
+	var dbg_msg = document.createElement('div');
+	dbg_msg.innerHTML = "&raquo; " + msg;
+	msg_div.appendChild(dbg_msg);
+}
+
+function getFallbackNDTServer() {
+	var test_nodes = [
+		'mlab1.nuq0t.measurement-lab.org',
+		'mlab2.nuq0t.measurement-lab.org',
+		'mlab4.nuq0t.measurement-lab.org',
+	];
+	var test_node = test_nodes[Math.floor(Math.random()*items.length)];
+	return test_node;
 }
