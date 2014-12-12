@@ -3,6 +3,8 @@ function NDT_on_pageload() {
 	var width = +d3.select("#svg").style("width").replace(/px/, ""), 
 		height = +d3.select("#svg").style("height").replace(/px/, ""), 
 		twoPi = 2 * Math.PI;
+	var innerRad = width * .3,
+		outerRad = width * .36;
 
 	window.NDT = {
 		'object': undefined,
@@ -14,7 +16,7 @@ function NDT_on_pageload() {
 			'onchange': NDT_on_change, 
 			'oncompletion': NDT_on_completion, 
 			'onerror': NDT_on_error,
-			'onready':  NDT_initialize_application
+			'onready': NDT_initialize_application
 		}
 	}
 	window.NDT['object'] = new NDTjs({ 
@@ -30,10 +32,10 @@ function NDT_on_pageload() {
 		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 	window.NDT['arc'] = d3.svg.arc()
-	        .startAngle(0)
+		.startAngle(0)
 		.endAngle(0)
-		.innerRadius(150)
-		.outerRadius(180);
+		.innerRadius(innerRad)
+		.outerRadius(outerRad);
 	window.NDT['meter'] = svg.append("g")
 		.attr("id", "progress-meter");
 	window.NDT['meter'].append("path").attr("class", "background").attr("d", window.NDT['arc'].endAngle(twoPi));
@@ -45,6 +47,7 @@ function NDT_on_pageload() {
 		.text("Loading Flash Elements...");
 
 }
+
 function NDT_initialize_application() {
 	if (window.NDT['object'].current_mlab == undefined) {
 		server_name = window.NDT['object'].get_host();
@@ -68,29 +71,31 @@ function NDT_initialize_application() {
 		}
 		switch ( bad_runtime_action ) {
 			case "none":
-	    			d3.select('text.status')
+				d3.select('text.status')
 					.text('Start Test')
 					.style('fill', 'green');
 				break;
 			case "warn":
 			case "warn-limit":
-	    			d3.select('text.status')
-					.text('Start Test [Warning]')	
+				d3.select('text.status')
+					.text('Start Test [Warning]')
 					.style('fill', '#ffde00');
-	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
+				d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
 				break;
 			default:
-	    			d3.select('text.status')
+				d3.select('text.status')
 					.text('Error')
-	    				.style('fill', 'red')
-	    				.style('pointer-events', 'none');
-	    			d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
+					.style('fill', 'red')
+					.style('pointer-events', 'none');
+				d3.select('#msg').text(window.NDT['object'].ndt_get_var('GuiMessage'));	
 		}
 	}
 }
+
 function NDT_on_click() {
 	window.NDT['object'].start_test(window.NDT['callbacks']);
 }
+
 function NDT_reset_meter() {
 	d3.selectAll('#progress-meter text').remove();
 	
@@ -108,24 +113,25 @@ function NDT_reset_meter() {
 }
 
 function NDT_on_change(returned_message) {
-		var ndt_status_labels = {
-			'notStarted': 'Preparing',
-			'allTestsCompleted': 'Complete',
-			'preparingInboundTest': 'Preparing Download',
-			'preparingOutboundTest': 'Preparing Upload',
-			'runningInboundTest': 'Measuring Download',
-			'runningOutboundTest': 'Measuring Upload',
-			'finishedInboundTest': 'Finished Download',
-			'finishedOutboundTest': 'Finished Upload',
-			'sendingMetaInformation': 'Sending to M-Lab...',
-			'submittedMetaInformation': 'Measurement Sent!',
-		}
-		window.NDT['state'] = returned_message;
-		window.NDT['time_switched'] = new Date().getTime();
+	var ndt_status_labels = {
+		'notStarted': 'Preparing',
+		'allTestsCompleted': 'Complete',
+		'preparingInboundTest': 'Preparing Download',
+		'preparingOutboundTest': 'Preparing Upload',
+		'runningInboundTest': 'Measuring Download',
+		'runningOutboundTest': 'Measuring Upload',
+		'finishedInboundTest': 'Finished Download',
+		'finishedOutboundTest': 'Finished Upload',
+		'sendingMetaInformation': 'Sending to M-Lab...',
+		'submittedMetaInformation': 'Measurement Sent!',
+	}
+	window.NDT['state'] = returned_message;
+	window.NDT['time_switched'] = new Date().getTime();
 		
-		d3.select('text.status').text(ndt_status_labels[returned_message]);
-		d3.timer(NDT_on_progress);		
+	d3.select('text.status').text(ndt_status_labels[returned_message]);
+	d3.timer(NDT_on_progress);		
 }
+
 function NDT_on_progress() {
 	var origin = 0,
 		progress = 0,
@@ -154,8 +160,8 @@ function NDT_on_progress() {
 		}
 	} 
 	else if (current_message == "allTestsCompleted") {
-			end_angle = window.NDT['arc'].endAngle(twoPi);
-			start_angle = window.NDT['arc'].startAngle(origin);
+		end_angle = window.NDT['arc'].endAngle(twoPi);
+		start_angle = window.NDT['arc'].startAngle(origin);
 	}
 	else {
 		end_angle = window.NDT['arc'].endAngle(origin);
@@ -170,6 +176,7 @@ function NDT_on_progress() {
 	
 	return false;	
 }
+
 function NDT_on_completion() {
 	var result_string,
 		dy_offset = 1.55,
@@ -204,6 +211,7 @@ function NDT_on_completion() {
 	d3.selectAll("#progress-meter text.status").attr("dy", "-50px");
 	d3.selectAll("#progress-meter text.information").attr("dy", "-20px");
 }
+
 function NDT_on_error(error_message) {
 	d3.timer.flush();
 	d3.selectAll("#progress-meter").classed("progress-error", true);
