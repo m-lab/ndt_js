@@ -316,26 +316,33 @@ NDTjs.prototype = {
 /**
  * Global functions
  */
+// Append any error messages from Flash to the document as HTML comments
 function appendErrors(msg) {
-	var msg_div = document.getElementsByTagName('body')[0];
-	var dbg_msg = document.createElement('div');
-	dbg_msg.innerHTML = "&raquo; " + msg;
-	msg_div.appendChild(dbg_msg);
+	var err_div = document.getElementsByTagName('body')[0];
+	var err_msg = document.createElement('div');
+	err_msg.innerHTML = "<!-- ERROR: " + msg + '-->';
+	err_div.appendChild(err_msg);
 }
 
+// Append any debug messages from Flash to the document as HTML comments
 function appendDebugOutput(msg) {
-	var msg_div = document.getElementsByTagName('body')[0];
+	var dbg_div = document.getElementsByTagName('body')[0];
 	var dbg_msg = document.createElement('div');
-	dbg_msg.innerHTML = "&raquo; " + msg;
-	msg_div.appendChild(dbg_msg);
+	dbg_msg.innerHTML = "<!-- DEBUG: " + msg + '-->';
+	dbg_div.appendChild(dbg_msg);
 }
 
+// A callback for Flash when the environment is "warn-limit". "warn-limit"
+// means that in addition to providing the user with a warning about their
+// Flash runtime not being suitable to run the NDT Flash client, it will direct
+// them to an M-Lab test server instead of a production node.
 function getFallbackNDTServer() {
 	var test_nodes = [
-		'mlab1.nuq0t.measurement-lab.org',
-		'mlab2.nuq0t.measurement-lab.org',
-		'mlab4.nuq0t.measurement-lab.org',
+		'ndt.iupui.mlab1.nuq0t.measurement-lab.org',
+		'ndt.iupui.mlab2.nuq0t.measurement-lab.org',
+		'ndt.iupui.mlab4.nuq0t.measurement-lab.org',
 	];
-	var test_node = test_nodes[Math.floor(Math.random()*items.length)];
+	var test_node = test_nodes[Math.floor(Math.random() * test_nodes.length)];
+	d3.select('text.information').text('Mountain View_CA, US (nuq0t)');
 	return test_node;
 }
