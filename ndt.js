@@ -318,18 +318,19 @@ NDTjs.prototype = {
  */
 // Append any error messages from Flash to the document as HTML comments
 function appendErrors(msg) {
-	var err_div = document.getElementsByTagName('body')[0];
-	var err_msg = document.createElement('div');
-	err_msg.innerHTML = "\n<!-- ERROR: " + msg + '-->\n';
-	err_div.appendChild(err_msg);
+	var body = document.getElementsByTagName('body')[0];
+	var err_msg = document.createComment('\nERROR: ' + msg);
+	body.appendChild(err_msg);
 }
 
 // Append any debug messages from Flash to the document as HTML comments
 function appendDebugOutput(msg) {
-	var dbg_div = document.getElementsByTagName('body')[0];
-	var dbg_msg = document.createElement('div');
-	dbg_msg.innerHTML = "\n<!-- DEBUG: " + msg + '-->\n';
-	dbg_div.appendChild(dbg_msg);
+	if ( window.NDT.object.config.debug !== true ) {
+		return;
+	}
+	var body = document.getElementsByTagName('body')[0];
+	var err_msg = document.createComment('\nDEBUG: ' + msg);
+	body.appendChild(err_msg);
 }
 
 // A callback for Flash when the environment is "warn-limit". "warn-limit"
