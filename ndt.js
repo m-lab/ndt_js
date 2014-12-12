@@ -320,7 +320,7 @@ NDTjs.prototype = {
 function appendErrors(msg) {
 	var err_div = document.getElementsByTagName('body')[0];
 	var err_msg = document.createElement('div');
-	err_msg.innerHTML = "<!-- ERROR: " + msg + '-->';
+	err_msg.innerHTML = "\n<!-- ERROR: " + msg + '-->\n';
 	err_div.appendChild(err_msg);
 }
 
@@ -328,7 +328,7 @@ function appendErrors(msg) {
 function appendDebugOutput(msg) {
 	var dbg_div = document.getElementsByTagName('body')[0];
 	var dbg_msg = document.createElement('div');
-	dbg_msg.innerHTML = "<!-- DEBUG: " + msg + '-->';
+	dbg_msg.innerHTML = "\n<!-- DEBUG: " + msg + '-->\n';
 	dbg_div.appendChild(dbg_msg);
 }
 
