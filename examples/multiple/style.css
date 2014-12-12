@@ -1,3 +1,14 @@
+#container {
+	width: 100%;
+}
+#msg {
+	width: 500px;
+	color: red;
+}
+#svg {
+	width: 500px;
+	height: 500px;
+}
 #progress-meter {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 28px;
