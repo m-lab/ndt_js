@@ -21,7 +21,7 @@ function NDT_on_pageload() {
 	}
 	window.NDT['object'] = new NDTjs({ 
 		swf_url: 'ndt.swf',
-		debug: true,
+		debug: false,
 		onready: window.NDT['callbacks']['onready']
 	});
 	
