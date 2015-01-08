@@ -328,9 +328,10 @@ function appendDebugOutput(msg) {
 	if ( window.NDT.object.config.debug !== true ) {
 		return;
 	}
-	var body = document.getElementsByTagName('body')[0];
-	var err_msg = document.createComment('\nDEBUG: ' + msg);
-	body.appendChild(err_msg);
+	var debug = document.getElementById('details');
+	var err_msg = document.createElement('div');
+	err_msg.innerHTML = '&raquo; ' + msg;
+	debug.appendChild(err_msg);
 }
 
 // A callback for Flash when the environment is "warn-limit". "warn-limit"

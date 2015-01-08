@@ -6,11 +6,21 @@
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="ndt.js"></script>
 		<script src="examples/single/single.js"></script>
+		<script>
+			function toggle_details(elem_id) {
+				var elem = document.getElementById(elem_id); 	
+				elem.style.display = elem.style.display != 'block' ? 'block' : 'none';
+			}
+		</script>
 	</head>
 	<body onload="NDT_on_pageload()">
 		<div id="container">
 			<div id="svg"></div>
 			<div id="msg"></div>
+			<a href="#details" id="details_link" onclick="toggle_details('details')">Details</a>
+			<div id="details">
+				<h3>DETAILS</h3>
+			</div>
 		</div>
 	</body>
 </html>
