@@ -7,6 +7,10 @@
 		<script src="ndt.js"></script>
 		<script src="examples/single/single.js"></script>
 		<script>
+			function toggle_debug(elem_id) {
+				var elem = document.getElementById(elem_id); 	
+				elem.style.display = elem.style.display != 'block' ? 'block' : 'none';
+			}
 			function toggle_details(elem_id) {
 				var elem = document.getElementById(elem_id); 	
 				elem.style.display = elem.style.display != 'block' ? 'block' : 'none';
@@ -15,11 +19,17 @@
 	</head>
 	<body onload="NDT_on_pageload()">
 		<div id="container">
+			<div id="detail_links">
+				<a href="#details" onclick="toggle_details('details')">Details</a> |
+				<a href="#debug" onclick="toggle_debug('debug')">Debug</a>
+			</div>
 			<div id="svg"></div>
 			<div id="msg"></div>
-			<a href="#details" id="details_link" onclick="toggle_details('details')">Details</a>
 			<div id="details">
 				<h3>DETAILS</h3>
+			</div>
+			<div id="debug">
+				<h3>DEBUG</h3>
 			</div>
 		</div>
 	</body>

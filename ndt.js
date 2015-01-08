@@ -323,15 +323,23 @@ function appendErrors(msg) {
 	body.appendChild(err_msg);
 }
 
-// Append any debug messages from Flash to the document as HTML comments
+// Append any debug messages from Flash to the document
 function appendDebugOutput(msg) {
 	if ( window.NDT.object.config.debug !== true ) {
 		return;
 	}
-	var debug = document.getElementById('details');
+	var debug = document.getElementById('debug');
 	var err_msg = document.createElement('div');
 	err_msg.innerHTML = '&raquo; ' + msg;
 	debug.appendChild(err_msg);
+}
+
+// Append any detailed test results to document
+function appendResultDetails(result) {
+	var details = document.getElementById('details');
+	var detail_msg = document.createElement('div');
+	detail_msg.innerHTML = '&raquo; ' + result;
+	details.appendChild(detail_msg);
 }
 
 // A callback for Flash when the environment is "warn-limit". "warn-limit"

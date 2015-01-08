@@ -13,17 +13,22 @@
 	width: 500px;
 	height: 500px;
 }
-#details_link {
+#detail_links {
 	position: fixed;
 	top: 5px;
 	right: 5px;
 	text-transform: uppercase;
 	font-size: medium;
+}
+#detail_links a {
 	color: blue;
 	text-decoration: none;
 }
-#details_link:hover {
+#detail_links a:hover {
 	text-decoration: underline;
+}
+#debug {
+	display: none;
 }
 #details {
 	display: none;
