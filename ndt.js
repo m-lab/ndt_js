@@ -54,7 +54,7 @@ NDTjs.prototype = {
 	build_config: function(config) {
         config = config || {};
         var defaults = {
-			swf_url: 'https://opentechinstitute.github.io/ndt_js/ndt.swf',
+            swf_url: 'https://opentechinstitute.github.io/ndt_js/ndt.swf',
             namespace: 'ndtjs',
             path: null,
             debug: false,
