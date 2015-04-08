@@ -20,7 +20,7 @@ function NDT_on_pageload() {
 		}
 	}
 	window.NDT['object'] = new NDTjs({ 
-		swf_url: 'ndt.swf',
+		swf_url: 'http://opentechinstitute.github.io/ndt_js/ndt.swf',
 		debug: true,
 		onready: window.NDT['callbacks']['onready']
 	});
