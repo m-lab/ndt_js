@@ -1,6 +1,14 @@
+DEPRECATION NOTICE
+------
+Please note that this repository is maintained here only for the sake of
+history, and is not supported by M-Lab.  While the name of this repository would
+lead you to believe that is a javascript-based NDT implementation, it is
+actually only a javascript wrapper around the now deprecated Flash client.  All
+future Web implementations should probably be using the more current
+[Websocket javascript client](https://github.com/ndt-project/ndt/blob/master/HTML5-frontend/ndt-browser-client.js).
+
 Network Diagnostic Test Web Framework 
 ====================
-
 NDT (Network Diagnostic Tool) is a client/server program that provides
 network configuration and performance testing to end-users' desktop,
 laptop, and mobile platforms. For more information about NDT, please see:
